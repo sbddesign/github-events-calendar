@@ -1,0 +1,41 @@
+{
+	"name": "github-events-calendar",
+	"version": "1.0.0",
+	"description": "ical events for bitcoin design community calls and events",
+	"main": "index.tsx",
+	"scripts": {
+		"start": "ts-node src/index.ts",
+		"lint": "prettier --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/johnsBeharry/github-events-calendar.git"
+	},
+	"keywords": [
+		"github",
+		"calendar",
+		"events",
+		"bitcoin",
+		"community",
+		"design"
+	],
+	"author": "Johns Beharry <johns@peakshift.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/johnsBeharry/github-events-calendar/issues"
+	},
+	"homepage": "https://github.com/johnsBeharry/github-events-calendar#readme",
+	"devDependencies": {
+		"typescript": "^4.0.2",
+		"ts-node": "^9.0.0"
+	},
+	"dependencies": {
+		"@octokit/rest": "^18.0.6",
+		"@types/node": "^14.10.3",
+		"ical-generator": "^1.15.0",
+		"markdown-it": "^11.0.1",
+		"parse-duration": "^0.4.4",
+		"prettier": "^2.1.2",
+		"yaml": "^1.10.0"
+	}
+}
