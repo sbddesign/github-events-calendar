@@ -1,6 +1,6 @@
 ---
 name: Design Call
-about: Call about Bitcoin Design
+about: Bitcoin Design community call or design sessions
 title: '... Design Call #0'
 labels: 'call'
 assignees: ''
