@@ -20,7 +20,7 @@ const repositories = [
 	{ org: "johnsBeharry", repo: "github-events-calendar", label: "call" },
 ];
 
-async function getIssues(owner: string, repo: string, label: string) {
+async function getIssues(owner: string, repo: string, label: string): Promise<any> {
 	let request = "GET /repos/:owner/:repo/issues";
 	let issues = await octokit.request(request, { owner, repo, labels: label });
 	return issues;
@@ -34,7 +34,7 @@ interface IEvent {
 	duration: number;
 }
 
-function getEventObjFromIssue(issue: any) {
+function getEventObjFromIssue(issue: any): IEvent {
 	let markdown = md.parse(issue.body, {});
 	let meta = YAML.parse(markdown[0].content);
 	meta = keysToLowercase(meta);
@@ -43,7 +43,7 @@ function getEventObjFromIssue(issue: any) {
 		? parseDuration(meta.duration)
 		: parseDuration(meta.time);
 
-	let event = {
+	let event: IEvent = {
 		title: issue.title,
 		url: issue.url,
 		date: meta.date,
@@ -56,11 +56,11 @@ function getEventObjFromIssue(issue: any) {
 
 
 getIssues("BitcoinDesign", "Meta", "call")
-	.then((issues) => {
+	.then((issues: any) => {
 		let events = issues.data.map((issue: any) => getEventObjFromIssue(issue));
 		console.log(events);
 	})
-	.catch((err) => {
+	.catch((err: any) => {
 		console.error("error", err);
 	});
 
