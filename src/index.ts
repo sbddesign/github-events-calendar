@@ -1,10 +1,11 @@
 const ical = require("ical-generator");
-const cal = ical();
 const { Octokit } = require("@octokit/rest");
 const MarkdownIt = require("markdown-it");
 const parseDuration = require("parse-duration");
 const YAML = require("yaml");
 const { keysToLowercase } = require("./helpers");
+
+const cal = ical();
 const octokit = new Octokit({
 	//auth: process.env.GITHUB_AUTH,
 	useragent: "github-events-calendar v0.1.0"
@@ -15,13 +16,22 @@ const md = new MarkdownIt();
 const Timezone = "GMT";
 const repositories = [
 	{ org: "BitcoinDesign", repo: "Meta", label: "call" },
-	{ org: "BitcoinDesign", repo: "Guide", label: "call" }
+	{ org: "BitcoinDesign", repo: "Guide", label: "call" },
+	{ org: "johnsBeharry", repo: "github-events-calendar", label: "call" },
 ];
 
 async function getIssues(owner: string, repo: string, label: string) {
 	let request = "GET /repos/:owner/:repo/issues";
 	let issues = await octokit.request(request, { owner, repo, labels: label });
 	return issues;
+}
+
+interface IEvent {
+	title: string;
+	url: string;
+	date: string;
+	startTime: string; // unix timestamp?
+	duration: number;
 }
 
 function getEventObjFromIssue(issue: any) {
@@ -38,11 +48,12 @@ function getEventObjFromIssue(issue: any) {
 		url: issue.url,
 		date: meta.date,
 		startTime: meta.time,
-		duration: meta.durationMs
+		duration: meta.durationMs ? meta.durationMs : 3600000,
 	};
 
 	return event;
 }
+
 
 getIssues("BitcoinDesign", "Meta", "call")
 	.then((issues) => {
@@ -52,3 +63,4 @@ getIssues("BitcoinDesign", "Meta", "call")
 	.catch((err) => {
 		console.error("error", err);
 	});
+
