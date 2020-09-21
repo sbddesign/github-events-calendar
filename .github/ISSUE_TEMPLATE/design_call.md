@@ -1,5 +1,5 @@
 ---
-name: Design Call
+name: Community or working group call
 about: Bitcoin Design community call or design sessions
 title: '... Design Call #0'
 labels: 'call'
