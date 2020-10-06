@@ -16,10 +16,10 @@ jobs:
         uses: GBKS/github-events-calendar@master
       - name: Commit files
         run: |
-          git config --local user.email "test@github.com"
-          git config --local user.name "GitHub Action test"
+          git config --local user.email "calendar-action@github.com"
+          git config --local user.name "iCal updater"
           git add events.ical
-          git commit -m "Add changes"
+          git commit -m "Update events.ical from issues"
       - name: Push changes # push the output folder to your repo
         uses: ad-m/github-push-action@master
         with:
