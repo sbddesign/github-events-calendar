@@ -5,6 +5,8 @@ const parseDuration = require("parse-duration");
 const YAML = require("yaml");
 const { keysToLowercase } = require("./helpers");
 
+console.log('1');
+
 const cal = ical({
     domain: 'bitcoindesigners.org',
     prodId: {
@@ -22,6 +24,8 @@ const octokit = new Octokit({
 
 const md = new MarkdownIt();
 
+console.log('2');
+
 const Timezone = "GMT";
 const repositories = [
 	{ org: "BitcoinDesign", repo: "Meta", label: "call" },
@@ -34,6 +38,8 @@ async function getIssues(owner: string, repo: string, label: string): Promise<an
 	let issues = await octokit.request(request, { owner, repo, labels: label });
 	return issues;
 }
+
+console.log('3');
 
 interface IEvent {
 	title: string;
@@ -87,6 +93,7 @@ function getEventObjFromIssue(issue: any): IEvent {
 	return event;
 }
 
+console.log('4');
 
 getIssues("BitcoinDesign", "Meta", "call")
 	.then((issues: any) => {
