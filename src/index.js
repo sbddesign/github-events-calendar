@@ -71,6 +71,11 @@ function getEventObjFromIssue(issue) {
         };
         cal.createEvent(eventObject);
     }
+
+	console.log('issue', issue);
+	console.log('meta', meta);
+	console.log('event', event);
+    
     return event;
 }
 console.log('4');
