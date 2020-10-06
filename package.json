@@ -2,11 +2,6 @@
 	"name": "github-events-calendar",
 	"version": "1.0.0",
 	"description": "ical events for bitcoin design community calls and events",
-	"main": "index.tsx",
-	"scripts": {
-		"start": "ts-node src/index.ts",
-		"lint": "prettier --write ."
-	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/johnsBeharry/github-events-calendar.git"
@@ -25,10 +20,6 @@
 		"url": "https://github.com/johnsBeharry/github-events-calendar/issues"
 	},
 	"homepage": "https://github.com/johnsBeharry/github-events-calendar#readme",
-	"devDependencies": {
-		"typescript": "^4.0.2",
-		"ts-node": "^9.0.0"
-	},
 	"dependencies": {
 		"@octokit/rest": "^18.0.6",
 		"@types/node": "^14.10.3",
