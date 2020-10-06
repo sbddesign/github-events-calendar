@@ -12,4 +12,4 @@ jobs:
     steps:
     - name: Hello world action step
       id: hello
-      uses: GBKS/github-events-calendar
+      uses: GBKS/github-events-calendar@v1.1
