@@ -8,3 +8,5 @@
 - [ ] Profit? … Or just finally have alerts of all events happening in the bitcoin community and projects I follow!!
 - [ ] … Hope no updates are made to the issue
 
+Test
+
