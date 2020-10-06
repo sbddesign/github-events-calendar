@@ -2,6 +2,7 @@
 	"name": "github-events-calendar",
 	"version": "1.0.0",
 	"description": "ical events for bitcoin design community calls and events",
+	"main": "src/index.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/johnsBeharry/github-events-calendar.git"
