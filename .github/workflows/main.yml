@@ -10,6 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     name: A job to say hello
     steps:
-    - name: Hello world action step
-      id: hello
-      uses: GBKS/github-events-calendar@master
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Hello world action step
+        id: hello
+        uses: GBKS/github-events-calendar
+      - name: Commit files
+        run: |
+          git config --local user.email "test@github.com"
+          git config --local user.name "GitHub Action test"
+          git add events.ical
+          git commit -m "Add changes"
+      - name: Push changes # push the output folder to your repo
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          force: true
