@@ -4,7 +4,12 @@ const { Octokit } = require("@octokit/rest");
 const MarkdownIt = require("markdown-it");
 const parseDuration = require("parse-duration");
 const YAML = require("yaml");
-const { keysToLowercase } = require("./helpers");
+
+function keysToLowercase(obj) {
+    let newObj = Object.fromEntries(Object.entries(obj).map(([k, v]) => [k.toLowerCase(), v]));
+    return newObj;
+}
+
 console.log('1');
 const cal = ical({
     domain: 'bitcoindesigners.org',
