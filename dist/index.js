@@ -71,13 +71,20 @@ function getEventObjFromIssue(issue) {
         };
         cal.createEvent(eventObject);
     }
+
+    console.log('issue', issue);
+    console.log('meta', meta);
+    console.log('event', event);
+    
     return event;
 }
 console.log('4');
 getIssues("BitcoinDesign", "Meta", "call")
     .then((issues) => {
     let events = issues.data.map((issue) => getEventObjFromIssue(issue));
-    cal.save("events.ical", () => { });
+    cal.save("events.ical", () => {
+        console.log('something happened', arguments);
+    });
 })
     .catch((err) => {
     console.error("error", err);
