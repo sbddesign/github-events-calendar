@@ -5,7 +5,16 @@ const parseDuration = require("parse-duration");
 const YAML = require("yaml");
 const { keysToLowercase } = require("./helpers");
 
-const cal = ical();
+const cal = ical({
+    domain: 'bitcoindesigners.org',
+    prodId: {
+		company: 'Bitcoin Design Community', 
+		product: 'ical-generator'
+	},
+    name: 'Bitcoin Design Community Calls & Events',
+    timezone: 'US/Pacific'
+});
+
 const octokit = new Octokit({
 	//auth: process.env.GITHUB_AUTH,
 	useragent: "github-events-calendar v0.1.0"
@@ -43,13 +52,37 @@ function getEventObjFromIssue(issue: any): IEvent {
 		? parseDuration(meta.duration)
 		: parseDuration(meta.time);
 
+	// Default duration to one hour
+	const duration = meta.durationMs ? meta.durationMs : 3600000;
+
 	let event: IEvent = {
 		title: issue.title,
 		url: issue.url,
 		date: meta.date,
 		startTime: meta.time,
-		duration: meta.durationMs ? meta.durationMs : 3600000,
+		duration: duration,
 	};
+
+	// Create an iCal entry if "utctime" is defined.
+	if(meta.utctime) {
+		const utcTime = meta.utctime;
+		const startDate = new Date(utcTime);
+		let endDate;
+
+		if(duration) {
+			endDate = new Date(startDate.getTime() + duration);
+		}
+
+		const eventObject = {
+			start: startDate,
+			end: endDate,
+			summary: issue.title,
+			url: issue.url
+		}
+
+		cal.createEvent(eventObject);
+
+	}
 
 	return event;
 }
@@ -58,7 +91,8 @@ function getEventObjFromIssue(issue: any): IEvent {
 getIssues("BitcoinDesign", "Meta", "call")
 	.then((issues: any) => {
 		let events = issues.data.map((issue: any) => getEventObjFromIssue(issue));
-		console.log(events);
+
+		cal.save("events.ical", () => {});
 	})
 	.catch((err: any) => {
 		console.error("error", err);

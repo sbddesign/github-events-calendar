@@ -1,0 +1,13 @@
+name: 'Test 1'
+description: 'Test 2'
+inputs:
+  who-to-greet: # id of input
+    description: 'Test 3'
+    required: true
+    default: 'Test 4'
+outputs:
+  time: # id of output
+    description: 'Test 5'
+runs:
+  using: 'node12'
+  main: 'src/index.js'
