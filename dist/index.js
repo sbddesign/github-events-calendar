@@ -80,6 +80,8 @@ const repository = core.getInput('repository').split(',');
 
 getIssues(repository[0], repository[1], repository[2]).then((issues) => {
     let events = issues.data.map((issue) => getEventObjFromIssue(issue));
+
+    console.log('dist');
     
     cal.save(core.getInput('file'), () => {});
 }).catch((err) => {
