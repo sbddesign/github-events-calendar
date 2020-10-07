@@ -56,20 +56,28 @@ function getEventObjFromIssue(issue) {
         duration: duration,
     };
 
+    console.log('issue', issue);
+    console.log('meta', meta);
+
     // Create an iCal entry if "utctime" is defined.
     if (meta.utctime) {
         const utcTime = meta.utctime;
         const startDate = new Date(utcTime);
+
         let endDate;
         if (duration) {
             endDate = new Date(startDate.getTime() + duration);
         }
+
         const eventObject = {
             start: startDate,
             end: endDate,
             summary: issue.title,
             url: issue.url
+            timestamp: startDate,
+            uid: startDate.getTime() + core.getInput('domain')
         };
+
         cal.createEvent(eventObject);
     }
     
@@ -78,13 +86,8 @@ function getEventObjFromIssue(issue) {
 
 const repository = core.getInput('repository').split(',');
 
-console.log('repository', core.getInput('repository'));
-
 getIssues(repository[0], repository[1], repository[2]).then((issues) => {
     let events = issues.data.map((issue) => getEventObjFromIssue(issue));
-    
-    console.log('src');
-    console.log('file', core.getInput('file'));
     
     cal.save(core.getInput('file'), () => {});
 }).catch((err) => {
