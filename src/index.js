@@ -73,7 +73,7 @@ function getEventObjFromIssue(issue) {
             start: startDate,
             end: endDate,
             summary: issue.title,
-            url: issue.url
+            url: issue.url,
             timestamp: startDate,
             uid: startDate.getTime() + core.getInput('domain')
         };
