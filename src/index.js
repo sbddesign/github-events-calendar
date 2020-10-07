@@ -56,9 +56,6 @@ function getEventObjFromIssue(issue) {
         duration: duration,
     };
 
-    console.log('issue', issue);
-    console.log('meta', meta);
-
     // Create an iCal entry if "utctime" is defined.
     if (meta.utctime) {
         const utcTime = meta.utctime;
@@ -75,7 +72,7 @@ function getEventObjFromIssue(issue) {
             summary: issue.title,
             url: issue.url,
             timestamp: startDate,
-            uid: startDate.getTime() + core.getInput('domain')
+            uid: issue.id + '@' + core.getInput('domain')
         };
 
         cal.createEvent(eventObject);
