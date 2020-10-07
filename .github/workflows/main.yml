@@ -19,6 +19,7 @@ jobs:
           company: 'Bitcoin Design Community'
           name: 'Bitcoin Design Community Calls & Events'
           repository: "BitcoinDesign,Meta,call"
+          file: 'events.ical'
       - name: Commit files
         run: |
           git config --local user.email "calendar-action@github.com"
