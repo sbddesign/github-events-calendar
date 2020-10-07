@@ -81,9 +81,7 @@ const repository = core.getInput('repository').split(',');
 getIssues(repository[0], repository[1], repository[2]).then((issues) => {
     let events = issues.data.map((issue) => getEventObjFromIssue(issue));
     
-    cal.save(core.getInput('file'), () => {
-    	console.log('something happened', arguments);
-    });
+    cal.save(core.getInput('file'), () => {});
 }).catch((err) => {
     console.error("error", err);
 });
