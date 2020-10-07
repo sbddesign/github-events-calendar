@@ -72,7 +72,7 @@ function getEventObjFromIssue(issue) {
             summary: issue.title,
             url: issue.url,
             timestamp: startDate,
-            uid: issue.id + '@' + core.getInput('domain')
+            uid: issue.id
         };
 
         cal.createEvent(eventObject);
