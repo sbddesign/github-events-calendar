@@ -1,13 +1,24 @@
-name: 'Test 1'
-description: 'Test 2'
+name: 'Create calendar from  issues'
+description: 'Creates an iCal file from issues that follow a specific template'
 inputs:
-  who-to-greet: # id of input
-    description: 'Test 3'
+  domain:
+    description: "Domain"
     required: true
-    default: 'Test 4'
-outputs:
-  time: # id of output
-    description: 'Test 5'
+  company:
+    description: "Company"
+    required: true
+  name:
+    description: "Name"
+    required: true
+  timezone:
+    description: "Timezone"
+    default: 'US/Pacific'
+  repository:
+    description: "Repository"
+    required: true
+  file:
+    description: "File"
+    required: true
 runs:
   using: 'node12'
   main: 'src/index.js'
