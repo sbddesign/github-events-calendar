@@ -6,12 +6,12 @@ X-WR-CALNAME:Bitcoin Design Community Calls & Events
 TIMEZONE-ID:US/Pacific
 X-WR-TIMEZONE:US/Pacific
 BEGIN:VEVENT
-UID:000-1o8b6a@bitcoindesigners.org
+UID:000-9sh88h@bitcoindesigners.org
 SEQUENCE:0
-DTSTAMP:20201007T071030Z
+DTSTAMP:20201007T071539Z
 DTSTART:20201014T160000Z
 DTEND:20201014T170000Z
-SUMMARY:Blah blah
+SUMMARY:Community Call #5
 URL;VALUE=URI:https://api.github.com/repos/BitcoinDesign/Meta/issues/27
 END:VEVENT
 END:VCALENDAR
