@@ -70,6 +70,8 @@ function getEventObjFromIssue(issue) {
             start: startDate,
             end: endDate,
             summary: issue.title,
+            description: 'Find out more at: ' + issue.html_url,
+            htmlDescription: 'Find out more at: <a href="' + issue.html_url + '">' + issue.html_url + '</a>',
             url: issue.html_url,
             timestamp: startDate,
             uid: issue.id
