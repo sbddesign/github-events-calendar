@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Create calendar from issues
     steps:
-      - uses: actions/checkout@v2.5
+      - uses: actions/checkout@v3
       - name: Create calendar
         id: hello
         uses: GBKS/github-events-calendar@v0.1.4
