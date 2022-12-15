@@ -35,7 +35,7 @@ async function getIssues(owner, repo, label) {
     return issues;
 }
 
-function getEventObjFromIssue(issue) {
+function addEventFromIssue(issue) {
     let markdown = md.parse(issue.body, {});
     let meta = YAML.parse(markdown[0].content);
     meta = keysToLowercase(meta);
@@ -47,14 +47,6 @@ function getEventObjFromIssue(issue) {
 
     // Default duration to one hour
     const duration = meta.durationMs ? meta.durationMs : 3600000;
-
-    let event = {
-        title: issue.title,
-        url: issue.url,
-        date: meta.date,
-        startTime: meta.time,
-        duration: duration,
-    };
 
     // Create an iCal entry if "utctime" is defined.
     if (meta.utctime) {
@@ -85,15 +77,13 @@ function getEventObjFromIssue(issue) {
             throw e;
         }
     }
-    
-    return event;
 }
 
 const repository = core.getInput('repository').split(',');
 
 getIssues(repository[0], repository[1], repository[2]).then((issues) => {
-    let events = issues.data.map((issue) => getEventObjFromIssue(issue));
-    
+    issues.data.forEach(issue => addEventFromIssue(issue));
+
     cal.save(core.getInput('file'), () => {});
 }).catch((err) => {
     console.error("error", err);
