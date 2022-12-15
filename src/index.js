@@ -77,7 +77,13 @@ function getEventObjFromIssue(issue) {
             uid: issue.id
         };
 
-        cal.createEvent(eventObject);
+        try{
+            cal.createEvent(eventObject)
+            console.log('✅ Added "' + eventObject.summary + '" to calendar')
+        } catch (e) {
+            console.log('❌ Failed to add "' + eventObject.summary + '" to calendar')
+            throw e;
+        }
     }
     
     return event;
