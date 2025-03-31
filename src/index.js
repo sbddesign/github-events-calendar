@@ -30,14 +30,32 @@ const md = new MarkdownIt();
 const Timezone = "GMT";
 
 async function getIssues(owner, repo, label) {
-    let request = "GET /repos/:owner/:repo/issues";
-    let issues = await octokit.request(request, { 
-        owner, 
-        repo, 
-        labels: label,
-        state: 'all'  // This will include both open and closed issues
-    });
-    return issues;
+    let allIssues = [];
+    let page = 1;
+    const per_page = 100; // Maximum allowed by GitHub API
+    
+    while (true) {
+        let request = "GET /repos/:owner/:repo/issues";
+        let response = await octokit.request(request, { 
+            owner, 
+            repo, 
+            labels: label,
+            state: 'all',
+            per_page,
+            page
+        });
+        
+        allIssues = allIssues.concat(response.data);
+        
+        // If we got fewer items than per_page, we've reached the end
+        if (response.data.length < per_page) {
+            break;
+        }
+        
+        page++;
+    }
+    
+    return { data: allIssues };
 }
 
 function addEventFromIssue(issue) {
