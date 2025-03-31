@@ -63,12 +63,42 @@ function addEventFromIssue(issue) {
             endDate = new Date(startDate.getTime() + duration);
         }
 
+        // Build description with optional fields
+        let descriptionParts = [];
+        
+        // Add format if available
+        if (meta.format) {
+            descriptionParts.push(`Format: ${meta.format}`);
+        }
+        
+        // Add Meetup link if available
+        if (meta.meetuplink) {
+            descriptionParts.push(`RSVP to the event: ${meta.meetuplink}`);
+        }
+        
+        // Add GitHub issue link
+        descriptionParts.push(`Contribute to the event: ${issue.html_url}`);
+        
+        // Add poster image if available
+        if (meta.image) {
+            descriptionParts.push(`Poster: ${meta.image}`);
+        }
+
+        const description = descriptionParts.join('\n\n');
+        const htmlDescription = descriptionParts.map(part => {
+            if (part.includes('http')) {
+                const [label, url] = part.split(': ');
+                return `${label}: <a href="${url}">${url}</a>`;
+            }
+            return part;
+        }).join('<br><br>');
+
         const eventObject = {
             start: startDate,
             end: endDate,
             summary: issue.title,
-            description: 'Find out more at: ' + issue.html_url,
-            htmlDescription: 'Find out more at: <a href="' + issue.html_url + '">' + issue.html_url + '</a>',
+            description: description,
+            htmlDescription: htmlDescription,
             url: issue.html_url,
             timestamp: startDate,
             uid: issue.id
