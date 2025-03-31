@@ -119,7 +119,8 @@ function addEventFromIssue(issue) {
             htmlDescription: htmlDescription,
             url: issue.html_url,
             timestamp: startDate,
-            uid: issue.id
+            uid: issue.id,
+            location: meta.location || undefined
         };
 
         try{
