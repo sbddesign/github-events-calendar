@@ -31,7 +31,12 @@ const Timezone = "GMT";
 
 async function getIssues(owner, repo, label) {
     let request = "GET /repos/:owner/:repo/issues";
-    let issues = await octokit.request(request, { owner, repo, labels: label });
+    let issues = await octokit.request(request, { 
+        owner, 
+        repo, 
+        labels: label,
+        state: 'all'  // This will include both open and closed issues
+    });
     return issues;
 }
 
